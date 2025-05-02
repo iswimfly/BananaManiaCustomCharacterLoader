@@ -33,6 +33,7 @@ namespace CustomCharacterLoader.CharacterManager
                     StreamReader reader = new StreamReader(json);
                     string data = reader.ReadToEnd();
                     string name = dir.Substring(dir.LastIndexOf("\\") + 1);
+                    Console.WriteLine(name);
                     CustomCharacter character = new CustomCharacter(name, data, dir);
                     string charaIdStr = "";
                     foreach (char c in name)
@@ -40,7 +41,8 @@ namespace CustomCharacterLoader.CharacterManager
                         int index = (int)c % 32;
                         charaIdStr += index;
                     }
-                    character.charaId = Convert.ToInt32(charaIdStr.Substring(0, 6));
+                    if (charaIdStr.Length > 6) charaIdStr = charaIdStr.Substring(0, 6);
+                    character.charaId = Convert.ToInt32(charaIdStr);
                     reader.Close();
 
                     if (character.asset != null)
